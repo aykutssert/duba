@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 
 interface Report {
@@ -37,8 +38,21 @@ interface Props {
 }
 
 export default function ReportDetailModal({ report, onClose }: Props) {
+  // ESC ile kapat + body scroll lock
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleEsc);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center">
+    <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-4">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
       <div className="relative max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-t-2xl bg-white shadow-2xl sm:rounded-2xl dark:bg-zinc-900">
@@ -54,7 +68,7 @@ export default function ReportDetailModal({ report, onClose }: Props) {
         </button>
 
         {/* Image */}
-        <div className="relative aspect-[4/3] w-full bg-zinc-100 dark:bg-zinc-800">
+        <div className="relative aspect-video w-full bg-zinc-100 sm:aspect-[4/3] dark:bg-zinc-800">
           <Image
             src={report.image_url}
             alt={report.comment || "İhlal fotoğrafı"}
@@ -63,42 +77,38 @@ export default function ReportDetailModal({ report, onClose }: Props) {
             sizes="(max-width: 768px) 100vw, 672px"
             priority
           />
-          {report.category && (
-            <span className="absolute left-4 top-4 rounded-full bg-red-600/90 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
-              {CATEGORY_LABELS[report.category] || report.category}
-            </span>
-          )}
         </div>
 
         {/* Details */}
-        <div className="p-5 sm:p-6">
+        <div className="p-4 sm:p-6">
+          {/* Category badge + date inline */}
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            {report.category && (
+              <span className="rounded-full bg-red-600/90 px-2.5 py-1 text-[11px] font-semibold text-white">
+                {CATEGORY_LABELS[report.category] || report.category}
+              </span>
+            )}
+            <span className="text-xs text-zinc-400 dark:text-zinc-500">
+              {formatDate(report.created_at)}
+            </span>
+          </div>
+
           {report.comment && (
-            <p className="mb-4 text-base leading-relaxed text-zinc-800 dark:text-zinc-200">
+            <p className="mb-4 text-[15px] leading-relaxed text-zinc-800 dark:text-zinc-200">
               {report.comment}
             </p>
           )}
 
-          <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-zinc-500 dark:text-zinc-400">
-            {/* Date */}
-            <div className="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <polyline points="12 6 12 12 16 14" />
+          {/* Location */}
+          {(report.address || (report.latitude && report.longitude)) && (
+            <div className="mb-4 flex items-start gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
               </svg>
-              <span>{formatDate(report.created_at)}</span>
+              <span>{report.address || `${report.latitude!.toFixed(4)}, ${report.longitude!.toFixed(4)}`}</span>
             </div>
-
-            {/* Location */}
-            {(report.address || (report.latitude && report.longitude)) && (
-              <div className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                <span>{report.address || `${report.latitude!.toFixed(4)}, ${report.longitude!.toFixed(4)}`}</span>
-              </div>
-            )}
-          </div>
+          )}
 
           {/* Map link */}
           {report.latitude && report.longitude && (
@@ -106,7 +116,7 @@ export default function ReportDetailModal({ report, onClose }: Props) {
               href={`https://www.google.com/maps?q=${report.latitude},${report.longitude}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 rounded-lg bg-zinc-100 px-4 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+              className="inline-flex items-center gap-2 rounded-lg bg-zinc-100 px-4 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />

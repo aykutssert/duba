@@ -326,26 +326,28 @@ export default function AdminPage() {
             <span className="text-xs text-zinc-400">{blurRadius}px</span>
           </div>
 
-          <div className="flex gap-3">
-            <button
-              onClick={reloadCanvas}
-              className="rounded-xl bg-zinc-200 px-5 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600"
-            >
-              Sıfırla
-            </button>
-            <button
-              onClick={() => {
-                updateStatus(editingReport.id, "rejected");
-                setEditingReport(null);
-              }}
-              className="rounded-xl bg-zinc-200 px-5 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600"
-            >
-              Reddet
-            </button>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex gap-3">
+              <button
+                onClick={reloadCanvas}
+                className="flex-1 rounded-xl bg-zinc-200 px-5 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600 sm:flex-none"
+              >
+                Sıfırla
+              </button>
+              <button
+                onClick={() => {
+                  updateStatus(editingReport.id, "rejected");
+                  setEditingReport(null);
+                }}
+                className="flex-1 rounded-xl bg-zinc-200 px-5 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600 sm:flex-none"
+              >
+                Reddet
+              </button>
+            </div>
             <button
               onClick={saveBlurAndApprove}
               disabled={saving}
-              className="flex-1 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
+              className="w-full rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:opacity-50 sm:flex-1"
             >
               {saving ? "Kaydediliyor..." : "Blurla ve Onayla"}
             </button>
@@ -359,7 +361,7 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
               Moderasyon Paneli
@@ -373,14 +375,14 @@ export default function AdminPage() {
               setAuthenticated(false);
               setPassword("");
             }}
-            className="rounded-lg bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
+            className="w-fit rounded-lg bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
           >
             Çıkış
           </button>
         </div>
 
         {/* Filter tabs */}
-        <div className="mb-6 flex gap-2">
+        <div className="mb-6 flex flex-wrap gap-2">
           {(["pending", "approved", "all"] as const).map((f) => (
             <button
               key={f}
@@ -452,7 +454,7 @@ export default function AdminPage() {
 
                 <div className="p-4">
                   {report.comment && (
-                    <p className="mb-2 text-sm text-zinc-700 dark:text-zinc-300">
+                    <p className="mb-2 line-clamp-2 text-sm text-zinc-700 dark:text-zinc-300">
                       {report.comment}
                     </p>
                   )}

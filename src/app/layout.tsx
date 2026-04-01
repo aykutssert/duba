@@ -13,14 +13,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Davar — Kural İhlali Bildirim Platformu",
+  metadataBase: new URL("https://davar.app"),
+  title: {
+    default: "Davar — Kural İhlali Bildirim Platformu",
+    template: "%s — Davar",
+  },
   description:
     "Kaldırım ve engelli yollarındaki usulsüz park ihlallerini fotoğrafla, bildir, farkındalık yarat.",
-  keywords: ["davar", "kaldırım ihlali", "erişilebilirlik", "bildirim", "engelsiz park"],
+  keywords: [
+    "davar",
+    "kaldırım ihlali",
+    "erişilebilirlik",
+    "bildirim",
+    "engelsiz park",
+    "engelli yolu",
+    "bisiklet yolu",
+    "usulsüz park",
+    "park ihlali bildirimi",
+  ],
   openGraph: {
     title: "Davar — Kural İhlali Bildirim Platformu",
     description: "Kaldırım ve engelli yollarındaki usulsüz parkları fotoğrafla, farkındalık yarat.",
-    url: "https://davar.com",
+    url: "https://davar.app",
     siteName: "Davar",
     locale: "tr_TR",
     type: "website",
@@ -33,6 +47,9 @@ export const metadata: Metadata = {
   icons: {
     icon: "/davar.svg",
     apple: "/davar.svg",
+  },
+  alternates: {
+    canonical: "https://davar.app",
   },
 };
 

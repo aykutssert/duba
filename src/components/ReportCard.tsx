@@ -54,7 +54,7 @@ export default function ReportCard({ report }: { report: Report }) {
 
       <div className="p-4">
         {report.comment && (
-          <p className="mb-2 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
+          <p className="mb-2 line-clamp-2 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
             {report.comment}
           </p>
         )}
