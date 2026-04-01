@@ -149,7 +149,7 @@ export default function HeatmapSection() {
           <MapContainer
             center={mapCenter}
             zoom={mapZoom}
-            minZoom={6}
+            minZoom={5}
             maxZoom={12}
             maxBounds={TURKEY_BOUNDS}
             maxBoundsViscosity={1.0}
