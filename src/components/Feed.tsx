@@ -28,13 +28,13 @@ async function getStats() {
   const [todayRes, weekRes, totalRes] = await Promise.all([
     supabase.from("reports").select("id", { count: "exact", head: true }).eq("status", "approved").gte("created_at", todayStart),
     supabase.from("reports").select("id", { count: "exact", head: true }).eq("status", "approved").gte("created_at", weekStart),
-    supabase.from("report_stats").select("total_reports").single(),
+    supabase.from("reports").select("id", { count: "exact", head: true }).eq("status", "approved"),
   ]);
 
   return {
     today: todayRes.count ?? 0,
     week: weekRes.count ?? 0,
-    allTime: (totalRes.data as { total_reports: number } | null)?.total_reports ?? 0,
+    allTime: totalRes.count ?? 0,
   };
 }
 
