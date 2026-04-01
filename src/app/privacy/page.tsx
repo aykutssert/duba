@@ -48,8 +48,8 @@ export default function PrivacyPage() {
                 moderatör tarafından yayın öncesinde gizlenir (pikselleştirme).
               </li>
               <li>
-                <strong>Konum (isteğe bağlı):</strong> Tarayıcınız izin verirse GPS koordinatları
-                ve bunlardan türetilen yaklaşık adres bilgisi.
+                <strong>İl ve İlçe (zorunlu):</strong> Bildirimin yapıldığı şehir ve ilçe bilgisi.
+                Tam GPS konumu alınmaz; yalnızca kullanıcının seçtiği il/ilçe kaydedilir.
               </li>
               <li>
                 <strong>Açıklama (isteğe bağlı):</strong> Kullanıcının girdiği kısa metin (max 280 karakter).
