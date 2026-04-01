@@ -150,7 +150,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
         </button>
 
         <h2 className="mb-1 text-xl font-bold text-zinc-900 dark:text-zinc-50">
-          Davarca Hareket 📸
+          Davar Savar 📸
         </h2>
         <p className="mb-5 text-sm text-zinc-500 dark:text-zinc-400">
           Gördüğünü çek, ilini seç, gerisini bize bırak.
@@ -198,7 +198,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                    Fotoğrafı sürükle bırak
+                    Fotoğrafı yükle
                   </p>
                   <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
                     veya tıklayarak seç &middot; JPEG, PNG, WebP, HEIC &middot; Max 10MB

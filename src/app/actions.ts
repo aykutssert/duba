@@ -2,7 +2,16 @@
 
 import { supabase } from "@/lib/supabase";
 import { CITY_NAMES, getDistricts } from "@/lib/turkey-cities";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(3, "1 h"),
+  analytics: true,
+});
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/heic"];
 const ALLOWED_EXTS = ["jpg", "jpeg", "png", "webp", "heic"];
@@ -31,6 +40,20 @@ export type ActionResult = {
 };
 
 export async function createReport(formData: FormData): Promise<ActionResult> {
+  // Rate limit kontrolü — IP bazlı
+  const headersList = await headers();
+  const forwardedFor = headersList.get("x-forwarded-for");
+  const realIp = headersList.get("x-real-ip");
+  const ip = forwardedFor?.split(",")[0]?.trim() ?? realIp ?? "127.0.0.1";
+
+  const { success, reset } = await ratelimit.limit(ip);
+  if (!success) {
+    return {
+      success: false,
+      error: `Saatlik yükleme limitine ulaştınız (3/saat). Lütfen ${Math.ceil((reset - Date.now()) / 60000)} dakika sonra tekrar deneyin.`,
+    };
+  }
+
   const file = formData.get("image") as File | null;
   const comment = (formData.get("comment") as string)?.trim() || "";
   const category = (formData.get("category") as string) || "";

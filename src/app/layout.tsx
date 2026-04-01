@@ -31,6 +31,12 @@ export const metadata: Metadata = {
     "usulsüz park",
     "park ihlali bildirimi",
   ],
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
   openGraph: {
     title: "Davar — Kural İhlali Bildirim Platformu",
     description: "Kaldırım ve engelli yollarındaki usulsüz parkları fotoğrafla, farkındalık yarat.",
