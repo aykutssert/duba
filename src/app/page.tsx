@@ -16,10 +16,10 @@ export default function Home() {
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-2xl">
-              Son Bildirimler
+              Haftanın İhlal Karnesi
             </h2>
             <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
-              Topluluk tarafından bildirilen ihlaller
+              Son 7 günde bildirilen ihlaller
             </p>
           </div>
         </div>
@@ -50,7 +50,7 @@ export default function Home() {
           </p>
           <div className="flex items-center gap-4">
             <a href="/privacy" className="text-xs text-zinc-400 transition-colors hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300">
-              Gizlilik
+              Gizlilik ve Koşullar
             </a>
             <p className="text-xs text-zinc-400 dark:text-zinc-500">MVP v1.0</p>
           </div>

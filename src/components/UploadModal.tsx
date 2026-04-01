@@ -368,9 +368,10 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
           </div>
 
           {/* Info notice */}
-          <p className="text-center text-[11px] text-zinc-400 dark:text-zinc-500">
-            Plaka ve yüz bilgileri moderatör tarafından gizlendikten sonra yayınlanır.
-          </p>
+          <div className="space-y-1 text-center text-[11px] text-zinc-400 dark:text-zinc-500">
+            <p>Plaka ve yüz bilgileri moderatör tarafından gizlendikten sonra yayınlanır.</p>
+            <p>Göndererek, fotoğrafın bizzat sizin çektiğiniz bir fotoğraf olduğunu ve <a href="/privacy" className="underline hover:text-zinc-600 dark:hover:text-zinc-300">kullanım koşullarını</a> kabul ettiğinizi onaylarsınız.</p>
+          </div>
 
           {/* Result message */}
           {result && (

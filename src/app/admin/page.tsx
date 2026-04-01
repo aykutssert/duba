@@ -12,7 +12,6 @@ interface Report {
   latitude: number | null;
   longitude: number | null;
   status: string;
-  original_image_url: string | null;
 }
 
 const CATEGORY_LABELS: Record<string, string> = {

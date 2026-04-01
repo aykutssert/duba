@@ -92,24 +92,7 @@ export async function createReport(formData: FormData): Promise<ActionResult> {
   const baseName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const fileName = `${baseName}.${ext}`;
 
-  // 1. Orijinali private bucket'a yükle (blursuz, admin erişimli)
-  const origPath = `reports/${baseName}-original.${ext}`;
-  let originalImageUrl: string | null = null;
-
-  const { error: origUploadError } = await supabase.storage
-    .from("violation-originals")
-    .upload(origPath, file, {
-      contentType: file.type,
-      upsert: false,
-    });
-
-  if (origUploadError) {
-    console.error("Original upload error (non-fatal):", origUploadError);
-  } else {
-    originalImageUrl = origPath;
-  }
-
-  // 2. Aynı fotoğrafı public bucket'a da yükle (admin blurladıktan sonra güncelleyecek)
+  // Fotoğrafı public bucket'a yükle (admin blurladıktan sonra güncelleyecek)
   const filePath = `reports/${fileName}`;
 
   const { error: uploadError } = await supabase.storage
@@ -132,7 +115,6 @@ export async function createReport(formData: FormData): Promise<ActionResult> {
   // Veritabanına kaydet
   const { error: dbError } = await supabase.from("reports").insert({
     image_url: publicUrl,
-    original_image_url: originalImageUrl,
     comment: comment ? sanitize(comment) : null,
     category: category || null,
     latitude,
@@ -145,6 +127,9 @@ export async function createReport(formData: FormData): Promise<ActionResult> {
     console.error("DB error:", dbError);
     return { success: false, error: "Rapor kaydedilirken bir hata oluştu." };
   }
+
+  // Toplam sayacı artır (fotoğraf silinse bile istatistik kalır)
+  await supabase.rpc("increment_total_reports");
 
   revalidatePath("/");
   return { success: true };

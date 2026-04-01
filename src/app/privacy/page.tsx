@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Gizlilik Politikası — Davar",
-  description: "Davar uygulaması gizlilik politikası ve veri işleme koşulları.",
+  title: "Gizlilik Politikası ve Kullanım Koşulları",
+  description: "Davar uygulaması gizlilik politikası, kullanım koşulları ve veri işleme süreçleri.",
 };
 
 export default function PrivacyPage() {
@@ -20,7 +20,7 @@ export default function PrivacyPage() {
         </Link>
 
         <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50">
-          Gizlilik Politikası
+          Gizlilik Politikası ve Kullanım Koşulları
         </h1>
         <p className="mb-8 text-sm text-zinc-500 dark:text-zinc-400">
           Son güncelleme: Nisan 2026
@@ -29,23 +29,30 @@ export default function PrivacyPage() {
         <div className="space-y-8 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
           <section>
             <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-50">
-              1. Toplanan Veriler
+              1. Projenin Amacı
             </h2>
             <p>
-              Davar, kaldırım ve engelli yolu ihlallerini fotoğrafla belgelemeye yarayan anonim bir
-              platformdur. Aşağıdaki veriler toplanır:
+              Davar, kaldırım ve engelli yolu ihlallerine karşı toplumsal farkındalık yaratmayı
+              amaçlayan anonim bir platformdur. Amacımız ceza kestirmek veya kişileri ifşa etmek
+              <strong> değildir</strong>; yalnızca sorunun boyutunu görünür kılmaktır.
             </p>
-            <ul className="mt-3 list-inside list-disc space-y-1.5 text-zinc-600 dark:text-zinc-400">
+          </section>
+
+          <section>
+            <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-50">
+              2. Toplanan Veriler
+            </h2>
+            <ul className="list-inside list-disc space-y-1.5 text-zinc-600 dark:text-zinc-400">
               <li>
-                <strong>Fotoğraf:</strong> Yüklediğiniz ihlal fotoğrafı. Plaka ve yüz bilgileri
-                moderatör tarafından yayın öncesinde gizlenir (pixelate).
+                <strong>Fotoğraf:</strong> Yüklediğiniz ihlal fotoğrafı. Plaka, yüz ve tabela bilgileri
+                moderatör tarafından yayın öncesinde gizlenir (pikselleştirme).
               </li>
               <li>
                 <strong>Konum (isteğe bağlı):</strong> Tarayıcınız izin verirse GPS koordinatları
                 ve bunlardan türetilen yaklaşık adres bilgisi.
               </li>
               <li>
-                <strong>Açıklama (isteğe bağlı):</strong> Kullanıcının girdiği kısa metin.
+                <strong>Açıklama (isteğe bağlı):</strong> Kullanıcının girdiği kısa metin (max 280 karakter).
               </li>
               <li>
                 <strong>Kategori:</strong> Seçilen ihlal türü.
@@ -59,7 +66,32 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-50">
-              2. Anonim Kullanım
+              3. Kullanım Koşulları ve Telif Hakkı
+            </h2>
+            <p className="mb-2">
+              Fotoğraf göndererek aşağıdaki koşulları kabul etmiş olursunuz:
+            </p>
+            <ul className="list-inside list-disc space-y-1.5 text-zinc-600 dark:text-zinc-400">
+              <li>
+                Yüklediğiniz fotoğraf <strong>bizzat sizin çektiğiniz</strong>, orijinal bir fotoğraftır.
+                İnternetten veya başka kaynaklardan alınmış görsellerin yüklenmesi yasaktır.
+              </li>
+              <li>
+                Fotoğrafın yalnızca kamu alanındaki park ihlalini belgelemek amacıyla çekilmiş olması gerekir.
+              </li>
+              <li>
+                Platformu kişisel husumet, taciz veya hedef gösterme amacıyla kullanmak yasaktır.
+              </li>
+              <li>
+                Fotoğraflar moderasyon sonrası blurlanmış haliyle kamuya açık olarak yayınlanır.
+                Yükleyerek bu yayına onay vermiş olursunuz.
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-50">
+              4. Anonim Kullanım
             </h2>
             <p>
               Davar herhangi bir kayıt, giriş veya kişisel bilgi talep etmez. Kullanıcı hesabı
@@ -70,31 +102,35 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-50">
-              3. Verilerin Saklanması
+              5. Verilerin Saklanması ve 7 Gün Politikası
             </h2>
             <p>
-              Fotoğraflar ve rapor bilgileri Supabase altyapısında güvenli bir şekilde
-              barındırılır. Orijinal (blursuz) fotoğraflar özel (private) bir alanda saklanır ve
-              kamuya açık değildir. Yalnızca moderatör tarafından gizlenmiş (blurlanmış) versiyonlar
-              herkese açık feed&apos;de gösterilir.
+              Davar, &quot;Haftalık Döngü&quot; prensibiyle çalışır. Onaylanan bildirimler yalnızca
+              <strong> 7 gün boyunca</strong> yayında kalır. 7 günü dolan fotoğraflar hem
+              veritabanından hem depolama alanından otomatik olarak silinir.
+            </p>
+            <p className="mt-2">
+              Fotoğraflar silinse bile anonim istatistiksel veriler (toplam bildirim sayısı gibi)
+              saklanmaya devam eder. Orijinal (blursuz) fotoğraflar hiçbir zaman saklanmaz;
+              yalnızca moderatör tarafından gizlenmiş versiyonlar yayınlanır.
             </p>
           </section>
 
           <section>
             <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-50">
-              4. Plaka ve Yüz Gizleme
+              6. Plaka, Yüz ve Tabela Gizleme
             </h2>
             <p>
               KVKK (6698 sayılı Kişisel Verilerin Korunması Kanunu) kapsamında, yüklenen
-              fotoğraflardaki araç plakaları ve kişilerin yüzleri moderatör tarafından
-              yayınlanmadan önce gizlenir. Gizlenmemiş hiçbir fotoğraf kamuya açık feed&apos;de
-              gösterilmez.
+              fotoğraflardaki araç plakaları, kişilerin yüzleri ve dükkan tabelaları moderatör
+              tarafından yayınlanmadan önce gizlenir. Gizlenmemiş hiçbir fotoğraf kamuya açık
+              feed&apos;de gösterilmez.
             </p>
           </section>
 
           <section>
             <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-50">
-              5. Çerezler ve İzleme
+              7. Çerezler ve İzleme
             </h2>
             <p>
               Davar üçüncü taraf çerez veya izleme aracı kullanmaz. Herhangi bir reklam ağı
@@ -104,10 +140,10 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-50">
-              6. Verilerin Silinmesi
+              8. Verilerin Silinmesi
             </h2>
             <p>
-              Yüklediğiniz bir bildirimin kaldırılmasını talep etmek için{" "}
+              Tüm bildirimler 7 gün sonra otomatik olarak silinir. Acil kaldırma talebi için{" "}
               <a
                 href="mailto:destek@davar.app"
                 className="font-medium text-red-600 underline underline-offset-2 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
@@ -120,10 +156,10 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-50">
-              7. İletişim
+              9. İletişim
             </h2>
             <p>
-              Gizlilik politikasıyla ilgili sorularınız için{" "}
+              Gizlilik politikası ve kullanım koşullarıyla ilgili sorularınız için{" "}
               <a
                 href="mailto:destek@davar.app"
                 className="font-medium text-red-600 underline underline-offset-2 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
