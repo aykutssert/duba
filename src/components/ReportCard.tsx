@@ -10,6 +10,14 @@ interface Report {
   district: string | null;
 }
 
+const CATEGORY_STYLES: Record<string, string> = {
+  engelli_yolu: "bg-blue-600/90",
+  kaldirim: "bg-red-600/90",
+  bisiklet_yolu: "bg-green-600/90",
+  okul_onu: "bg-amber-500/90",
+  diger: "bg-zinc-500/90",
+};
+
 const CATEGORY_LABELS: Record<string, string> = {
   engelli_yolu: "Engelli yolu",
   kaldirim: "Kaldırım",
@@ -45,7 +53,7 @@ export default function ReportCard({ report }: { report: Report }) {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
         {report.category && (
-          <span className="absolute left-3 top-3 rounded-full bg-red-600/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+          <span className={`absolute left-3 top-3 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm ${CATEGORY_STYLES[report.category] || "bg-zinc-500/90"}`}>
             {CATEGORY_LABELS[report.category] || report.category}
           </span>
         )}
