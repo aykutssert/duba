@@ -17,7 +17,7 @@ export default function HeroSection() {
       <div id="hero-sentinel" className="absolute top-0 h-1 w-full" />
       <div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-16 text-center sm:px-6 sm:py-24">
         <Image
-          src="/duba.svg"
+          src="/duba-no-text.svg"
           alt="Duba"
           width={72}
           height={72}

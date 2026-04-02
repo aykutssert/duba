@@ -33,11 +33,20 @@ export default function Header() {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <a href="/" className="flex items-center gap-3">
             <Image
+              src="/duba-light.svg"
+              alt="Duba"
+              width={36}
+              height={36}
+              className="block object-contain dark:hidden"
+              style={{ width: "36px", height: "36px" }}
+              priority
+            />
+            <Image
               src="/duba.svg"
               alt="Duba"
               width={36}
               height={36}
-              className="rounded-lg object-contain"
+              className="hidden object-contain dark:block"
               style={{ width: "36px", height: "36px" }}
               priority
             />
