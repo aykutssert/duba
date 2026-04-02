@@ -30,6 +30,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState<"pending" | "approved" | "all">("pending");
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   // Blur editor state
   const [editingReport, setEditingReport] = useState<Report | null>(null);
@@ -115,6 +116,26 @@ export default function AdminPage() {
       alert("Silme başarısız.");
     } finally {
       setActionLoading(null);
+    }
+  };
+
+  const SITE_URL = "https://duba-sand.vercel.app";
+
+  const copyTwitterFormat = async (report: Report) => {
+    const city = report.city || "Bilinmeyen İl";
+    const district = report.district || "";
+    const location = district ? `${city} / ${district}` : city;
+    const category = report.category ? (CATEGORY_LABELS[report.category] || report.category) : "Genel ihlal";
+    const comment = report.comment ? `\n📝 \"${report.comment}\"` : "";
+
+    const text = `📍 ${location}\n⚠️ İhlal: ${category}${comment}\n\nDetaylar: ${SITE_URL}\n#duba #trafik #kuralihlali`;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedId(report.id);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch {
+      alert("Kopyalama başarısız.");
     }
   };
 
@@ -389,6 +410,16 @@ export default function AdminPage() {
               </button>
             </div>
             <button
+              onClick={() => copyTwitterFormat(editingReport)}
+              className={`rounded-xl px-5 py-3 text-sm font-semibold transition-colors sm:flex-none ${
+                copiedId === editingReport.id
+                  ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                  : "bg-sky-100 text-sky-700 hover:bg-sky-200 dark:bg-sky-900/30 dark:text-sky-400 dark:hover:bg-sky-900/50"
+              }`}
+            >
+              {copiedId === editingReport.id ? "✓ Kopyalandı" : "🐦 Twitter Kopyala"}
+            </button>
+            <button
               onClick={saveBlurAndApprove}
               disabled={saving || !blurConfirmed}
               className="w-full rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-1"
@@ -529,6 +560,16 @@ export default function AdminPage() {
                         İncele ve Onayla
                       </button>
                     )}
+                    <button
+                      onClick={() => copyTwitterFormat(report)}
+                      className={`rounded-lg px-3 py-2 text-xs font-semibold transition-colors ${
+                        copiedId === report.id
+                          ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                          : "bg-sky-100 text-sky-700 hover:bg-sky-200 dark:bg-sky-900/30 dark:text-sky-400 dark:hover:bg-sky-900/50"
+                      }`}
+                    >
+                      {copiedId === report.id ? "✓ Kopyalandı" : "🐦 Kopyala"}
+                    </button>
                     <button
                       onClick={() => deleteReport(report.id)}
                       disabled={actionLoading === report.id}
