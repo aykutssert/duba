@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://duba-sand.vercel.app"),
+  metadataBase: new URL("https://duba.today"),
   title: {
     default: "Duba — Kural İhlali Bildirim Platformu",
     template: "%s — Duba",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Duba — Kural İhlali Bildirim Platformu",
     description: "Kaldırım ve engelli yollarındaki usulsüz parkları fotoğrafla, farkındalık yarat.",
-    url: "https://duba-sand.vercel.app",
+    url: "https://duba.today",
     siteName: "Duba",
     locale: "tr_TR",
     type: "website",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     apple: "/duba.png",
   },
   alternates: {
-    canonical: "https://duba-sand.vercel.app",
+    canonical: "https://duba.today",
   },
 };
 

@@ -119,7 +119,7 @@ export default function AdminPage() {
     }
   };
 
-  const SITE_URL = "https://duba-sand.vercel.app";
+  const SITE_URL = "https://duba.today";
 
   const copyTwitterFormat = async (report: Report) => {
     const city = report.city || "Bilinmeyen İl";
