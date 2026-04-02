@@ -87,6 +87,29 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: "Geçersiz ID" }, { status: 400 });
   }
 
+  // Önce rapor bilgilerini al (image_url için)
+  const { data: report, error: fetchError } = await supabaseAdmin
+    .from("reports")
+    .select("image_url")
+    .eq("id", id)
+    .single();
+
+  if (fetchError) {
+    console.error("Fetch report error:", fetchError);
+  }
+
+  // Storage'dan görseli sil
+  if (report?.image_url) {
+    const filePath = report.image_url.split("/").slice(-2).join("/"); // "reports/filename.jpg"
+    const { error: storageError } = await supabaseAdmin.storage
+      .from("violation-images")
+      .remove([filePath]);
+    if (storageError) {
+      console.error("Storage delete error:", storageError);
+    }
+  }
+
+  // Veritabanından sil
   const { error } = await supabaseAdmin
     .from("reports")
     .delete()
