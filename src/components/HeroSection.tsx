@@ -21,7 +21,7 @@ export default function HeroSection() {
           alt="Duba"
           width={72}
           height={72}
-          className="mb-6 rounded-2xl shadow-lg object-contain"
+          className="mb-6 object-contain"
           style={{ width: "72px", height: "72px" }}
           priority
         />
