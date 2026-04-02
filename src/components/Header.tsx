@@ -37,7 +37,7 @@ export default function Header() {
               alt="Duba"
               width={36}
               height={36}
-              className="rounded-lg"
+              className="rounded-lg object-contain"
               style={{ width: "36px", height: "36px" }}
               priority
             />
