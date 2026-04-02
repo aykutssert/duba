@@ -1,7 +1,7 @@
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { NextRequest, NextResponse } from "next/server";
 
-const CLEANUP_SECRET = process.env.CLEANUP_SECRET || process.env.ADMIN_PASSWORD || "davar2026";
+const CLEANUP_SECRET = process.env.CLEANUP_SECRET || process.env.ADMIN_PASSWORD!;
 
 export async function POST(request: NextRequest) {
   const secret = request.headers.get("authorization")?.replace("Bearer ", "");

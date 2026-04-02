@@ -1,12 +1,16 @@
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { checkAdminRateLimit } from "@/lib/admin-rate-limit";
 import { NextRequest, NextResponse } from "next/server";
 import { timingSafeEqual } from "crypto";
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "davar2026";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD!;
 const VALID_FILTERS = ["pending", "approved", "rejected", "all"];
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-function checkAuth(request: NextRequest) {
+async function checkAuth(request: NextRequest) {
+  const rateLimitError = await checkAdminRateLimit(request);
+  if (rateLimitError) return rateLimitError;
+
   const pw = request.headers.get("x-admin-password") || "";
   try {
     const a = Buffer.from(pw);
@@ -21,7 +25,7 @@ function checkAuth(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  const authError = checkAuth(request);
+  const authError = await checkAuth(request);
   if (authError) return authError;
 
   const filter = request.nextUrl.searchParams.get("filter") || "pending";
@@ -51,7 +55,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
-  const authError = checkAuth(request);
+  const authError = await checkAuth(request);
   if (authError) return authError;
 
   const { id, status } = await request.json();
@@ -74,7 +78,7 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  const authError = checkAuth(request);
+  const authError = await checkAuth(request);
   if (authError) return authError;
 
   const { id } = await request.json();
