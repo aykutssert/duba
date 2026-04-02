@@ -101,7 +101,12 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
     formData.append("city", city);
     formData.append("district", district);
 
-    const res = await createReport(formData);
+    let res: ActionResult;
+    try {
+      res = await createReport(formData);
+    } catch {
+      res = { success: false, error: "Bağlantı zaman aşımına uğradı. Lütfen daha küçük bir fotoğraf ile tekrar deneyin." };
+    }
     setResult(res);
     setLoading(false);
 
