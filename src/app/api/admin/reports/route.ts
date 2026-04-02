@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { NextRequest, NextResponse } from "next/server";
 import { timingSafeEqual } from "crypto";
 
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Geçersiz filtre" }, { status: 400 });
   }
 
-  let query = supabase
+  let query = supabaseAdmin
     .from("reports")
     .select("*")
     .order("created_at", { ascending: false })
@@ -60,7 +60,7 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: "Geçersiz istek" }, { status: 400 });
   }
 
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from("reports")
     .update({ status })
     .eq("id", id);
@@ -83,7 +83,7 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: "Geçersiz ID" }, { status: 400 });
   }
 
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from("reports")
     .delete()
     .eq("id", id);

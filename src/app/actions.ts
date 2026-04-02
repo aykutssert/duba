@@ -1,11 +1,12 @@
 "use server";
 
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { CITY_NAMES, getDistricts } from "@/lib/turkey-cities";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
+import sharp from "sharp";
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
@@ -31,7 +32,9 @@ function sanitize(str: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#x27;");
+    .replace(/'/g, "&#x27;")
+    .replace(/\//g, "&#x2F;")
+    .replace(/`/g, "&#96;");
 }
 
 export type ActionResult = {
@@ -108,12 +111,24 @@ export async function createReport(formData: FormData): Promise<ActionResult> {
   const baseName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const fileName = `${baseName}.${ext}`;
 
+  // EXIF metadata temizle (plaka, yüz, GPS gibi gizli veriler)
+  const fileBuffer = Buffer.from(await file.arrayBuffer());
+  let cleanBuffer: Buffer;
+  try {
+    cleanBuffer = await sharp(fileBuffer)
+      .rotate() // EXIF orientation'a göre döndür, sonra metadata sil
+      .withMetadata({}) // tüm EXIF/metadata'yı temizle
+      .toBuffer();
+  } catch {
+    cleanBuffer = fileBuffer; // sharp desteklemiyorsa orijinali kullan
+  }
+
   // Fotoğrafı public bucket'a yükle (admin blurladıktan sonra güncelleyecek)
   const filePath = `reports/${fileName}`;
 
-  const { error: uploadError } = await supabase.storage
+  const { error: uploadError } = await supabaseAdmin.storage
     .from("violation-images")
-    .upload(filePath, file, {
+    .upload(filePath, cleanBuffer, {
       contentType: file.type,
       upsert: false,
     });
@@ -126,10 +141,10 @@ export async function createReport(formData: FormData): Promise<ActionResult> {
   // Public URL al
   const {
     data: { publicUrl },
-  } = supabase.storage.from("violation-images").getPublicUrl(filePath);
+  } = supabaseAdmin.storage.from("violation-images").getPublicUrl(filePath);
 
   // Veritabanına kaydet
-  const { error: dbError } = await supabase.from("reports").insert({
+  const { error: dbError } = await supabaseAdmin.from("reports").insert({
     image_url: publicUrl,
     comment: comment ? sanitize(comment) : null,
     category: category,
@@ -144,7 +159,7 @@ export async function createReport(formData: FormData): Promise<ActionResult> {
   }
 
   // Toplam sayacı artır (fotoğraf silinse bile istatistik kalır)
-  const { error: statsError } = await supabase.rpc("increment_total_reports");
+  const { error: statsError } = await supabaseAdmin.rpc("increment_total_reports");
   if (statsError) {
     console.error("Stats increment error:", statsError);
   }

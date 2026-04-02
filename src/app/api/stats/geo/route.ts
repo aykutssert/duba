@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase";
 
 // Türkiye il merkezleri koordinatları
 const CITY_COORDS: Record<string, [number, number]> = {
@@ -86,12 +86,8 @@ const CITY_COORDS: Record<string, [number, number]> = {
   "Düzce": [40.8438, 31.1565],
 };
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
 export async function GET() {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Son 7 günün onaylanmış raporlarını al
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();

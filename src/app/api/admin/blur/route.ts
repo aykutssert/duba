@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { NextRequest, NextResponse } from "next/server";
 import { timingSafeEqual } from "crypto";
 
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Mevcut raporu bul
-  const { data: report, error: fetchError } = await supabase
+  const { data: report, error: fetchError } = await supabaseAdmin
     .from("reports")
     .select("image_url")
     .eq("id", reportId)
@@ -48,13 +48,13 @@ export async function POST(request: NextRequest) {
 
   if (bucketPath) {
     // Eski dosyayı sil
-    await supabase.storage.from("violation-images").remove([bucketPath]);
+    await supabaseAdmin.storage.from("violation-images").remove([bucketPath]);
   }
 
   // Blurlanmış fotoğrafı aynı path'e yükle
   const fileName = `reports/${Date.now()}-blurred.jpg`;
 
-  const { error: uploadError } = await supabase.storage
+  const { error: uploadError } = await supabaseAdmin.storage
     .from("violation-images")
     .upload(fileName, image, {
       contentType: "image/jpeg",
@@ -69,10 +69,10 @@ export async function POST(request: NextRequest) {
   // Yeni public URL al
   const {
     data: { publicUrl },
-  } = supabase.storage.from("violation-images").getPublicUrl(fileName);
+  } = supabaseAdmin.storage.from("violation-images").getPublicUrl(fileName);
 
   // Raporu güncelle: blurlu URL + approved status
-  const { error: updateError } = await supabase
+  const { error: updateError } = await supabaseAdmin
     .from("reports")
     .update({
       image_url: publicUrl,

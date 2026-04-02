@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { NextRequest, NextResponse } from "next/server";
 
 const CLEANUP_SECRET = process.env.CLEANUP_SECRET || process.env.ADMIN_PASSWORD || "davar2026";
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
   // 1. 7 günden eski onaylı raporları bul
-  const { data: oldReports, error: fetchError } = await supabase
+  const { data: oldReports, error: fetchError } = await supabaseAdmin
     .from("reports")
     .select("id, image_url")
     .eq("status", "approved")
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     .filter(Boolean) as string[];
 
   if (filePaths.length > 0) {
-    const { error: storageError } = await supabase.storage
+    const { error: storageError } = await supabaseAdmin.storage
       .from("violation-images")
       .remove(filePaths);
     if (storageError) {
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
   // 3. DB'den sil
   const ids = oldReports.map((r) => r.id);
-  const { error: deleteError } = await supabase
+  const { error: deleteError } = await supabaseAdmin
     .from("reports")
     .delete()
     .in("id", ids);
