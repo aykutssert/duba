@@ -36,6 +36,7 @@ export default function AdminPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawing = useRef(false);
   const [saving, setSaving] = useState(false);
+  const [blurConfirmed, setBlurConfirmed] = useState(false);
 
   const fetchReports = useCallback(async () => {
     setLoading(true);
@@ -119,6 +120,7 @@ export default function AdminPage() {
   // --- Blur Editor ---
   const openBlurEditor = (report: Report) => {
     setEditingReport(report);
+    setBlurConfirmed(false);
   };
 
   useEffect(() => {
@@ -343,6 +345,19 @@ export default function AdminPage() {
             <span className="text-xs text-zinc-400">{blurRadius}px</span>
           </div>
 
+          {/* Blur confirmation checkbox */}
+          <label className="flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-700 dark:bg-amber-950/30">
+            <input
+              type="checkbox"
+              checked={blurConfirmed}
+              onChange={(e) => setBlurConfirmed(e.target.checked)}
+              className="h-4 w-4 rounded border-zinc-300 text-emerald-600 accent-emerald-600"
+            />
+            <span className="text-sm font-medium text-amber-800 dark:text-amber-300">
+              Plaka, yüz ve tabela bilgilerini gizlediğimi onaylıyorum.
+            </span>
+          </label>
+
           <div className="flex flex-col gap-3 sm:flex-row">
             <div className="flex gap-3">
               <button
@@ -363,8 +378,8 @@ export default function AdminPage() {
             </div>
             <button
               onClick={saveBlurAndApprove}
-              disabled={saving}
-              className="w-full rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:opacity-50 sm:flex-1"
+              disabled={saving || !blurConfirmed}
+              className="w-full rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-1"
             >
               {saving ? "Kaydediliyor..." : "Blurla ve Onayla"}
             </button>

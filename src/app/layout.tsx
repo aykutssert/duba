@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://davar.app"),
+  metadataBase: new URL("https://davar-sand.vercel.app"),
   title: {
     default: "Davar — Kural İhlali Bildirim Platformu",
     template: "%s — Davar",
@@ -36,26 +36,39 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
     userScalable: false,
+    viewportFit: "cover",
   },
   openGraph: {
     title: "Davar — Kural İhlali Bildirim Platformu",
     description: "Kaldırım ve engelli yollarındaki usulsüz parkları fotoğrafla, farkındalık yarat.",
-    url: "https://davar.app",
+    url: "https://davar-sand.vercel.app",
     siteName: "Davar",
     locale: "tr_TR",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Davar — Kural İhlali Bildirim Platformu",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Davar — Kural İhlali Bildirim Platformu",
     description: "Kaldırım ve engelli yollarındaki usulsüz parkları fotoğrafla, farkındalık yarat.",
+    images: ["/og-image.png"],
   },
   icons: {
-    icon: "/davar.svg",
-    apple: "/davar.svg",
+    icon: [
+      { url: "/davar.svg", type: "image/svg+xml" },
+      { url: "/davar.png", type: "image/png" },
+    ],
+    apple: "/davar.png",
   },
   alternates: {
-    canonical: "https://davar.app",
+    canonical: "https://davar-sand.vercel.app",
   },
 };
 

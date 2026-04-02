@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback, useEffect } from "react";
+import Toast from "./Toast";
 import imageCompression from "browser-image-compression";
 import { createReport, type ActionResult } from "@/app/actions";
 import { CITY_NAMES, getDistricts } from "@/lib/turkey-cities";
@@ -30,6 +31,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
   const [loading, setLoading] = useState(false);
   const [compressing, setCompressing] = useState(false);
   const [result, setResult] = useState<ActionResult | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const districts = city ? getDistricts(city) : [];
@@ -111,9 +113,12 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
     setLoading(false);
 
     if (res.success) {
+      setToast({ message: "Bildirim gönderildi! Moderatör onayından sonra yayınlanacak.", type: "success" });
       setTimeout(() => {
         handleClose();
-      }, 1500);
+      }, 2000);
+    } else if (res.error) {
+      setToast({ message: res.error, type: "error" });
     }
   };
 
@@ -142,7 +147,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
       />
 
       {/* Modal */}
-      <div className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-t-2xl bg-white p-6 shadow-2xl sm:rounded-2xl dark:bg-zinc-900">
+      <div className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-t-2xl bg-white p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-2xl sm:rounded-2xl dark:bg-zinc-900">
         {/* Close button */}
         <button
           onClick={handleClose}
@@ -251,7 +256,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
+              className="w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-base sm:text-sm text-zinc-900 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
             >
               {CATEGORIES.map((c) => (
                 <option key={c.value} value={c.value}>
@@ -302,7 +307,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
                 id="city"
                 value={city}
                 onChange={(e) => { setCity(e.target.value); setDistrict(""); }}
-                className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-3 text-sm text-zinc-900 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
+                className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-3 text-base sm:text-sm text-zinc-900 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
               >
                 <option value="">İl seç...</option>
                 {CITY_NAMES.map((c) => (
@@ -319,7 +324,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
                 disabled={!city}
-                className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-3 text-sm text-zinc-900 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
+                className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-3 text-base sm:text-sm text-zinc-900 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
               >
                 <option value="">İlçe seç...</option>
                 {districts.map((d) => (
@@ -335,18 +340,10 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
             <p>Göndererek, fotoğrafın bizzat sizin çektiğiniz bir fotoğraf olduğunu ve <a href="/privacy" className="underline hover:text-zinc-600 dark:hover:text-zinc-300">kullanım koşullarını</a> kabul ettiğinizi onaylarsınız.</p>
           </div>
 
-          {/* Result message */}
-          {result && (
-            <div
-              className={`rounded-lg px-4 py-3 text-sm font-medium ${
-                result.success
-                  ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400"
-                  : "bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400"
-              }`}
-            >
-              {result.success
-                ? "Bildirim gönderildi! Moderatör onayından sonra yayınlanacak."
-                : result.error}
+          {/* Result message (inline fallback) */}
+          {result && !result.success && (
+            <div className="rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-700 dark:bg-red-900/20 dark:text-red-400">
+              {result.error}
             </div>
           )}
 
@@ -372,6 +369,14 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
           </button>
         </form>
       </div>
+
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }

@@ -49,7 +49,7 @@ export default function FeedClient({ reports }: { reports: Report[] }) {
           <select
             value={filterCity}
             onChange={(e) => { setFilterCity(e.target.value); setFilterDistrict(""); }}
-            className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+            className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-base sm:text-sm text-zinc-700 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
           >
             <option value="">Tüm İller</option>
             {cities.map((c) => (
@@ -60,7 +60,7 @@ export default function FeedClient({ reports }: { reports: Report[] }) {
             <select
               value={filterDistrict}
               onChange={(e) => setFilterDistrict(e.target.value)}
-              className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+              className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-base sm:text-sm text-zinc-700 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
             >
               <option value="">Tüm İlçeler</option>
               {districts.map((d) => (

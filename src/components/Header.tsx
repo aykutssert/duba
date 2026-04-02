@@ -58,7 +58,7 @@ export default function Header() {
       {/* FAB — Hero'yu geçince sağ altta belirir */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-xl shadow-red-600/30 transition-all duration-300 hover:bg-red-700 hover:shadow-red-700/40 active:scale-90 ${
+        className={`fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-xl shadow-red-600/30 transition-all duration-300 hover:bg-red-700 hover:shadow-red-700/40 active:scale-90 ${
           showFab ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
         }`}
         aria-label="İhlal Bildir"
