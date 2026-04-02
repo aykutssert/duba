@@ -89,8 +89,8 @@ export async function createReport(formData: FormData): Promise<ActionResult> {
   }
 
   const validDistricts = getDistricts(city);
-  if (!district || !validDistricts.includes(district)) {
-    return { success: false, error: "Lütfen bir ilçe seçin." };
+  if (district && !validDistricts.includes(district)) {
+    return { success: false, error: "Geçersiz ilçe seçimi." };
   }
 
   if (comment.length > MAX_COMMENT_LENGTH) {

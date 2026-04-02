@@ -91,7 +91,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file || !category || !city || !district) return;
+    if (!file || !category || !city) return;
 
     setLoading(true);
     setResult(null);
@@ -317,7 +317,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
             </div>
             <div>
               <label htmlFor="district" className="mb-1 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                İlçe <span className="text-red-500">*</span>
+                İlçe
               </label>
               <select
                 id="district"
@@ -350,7 +350,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
           {/* Submit button */}
           <button
             type="submit"
-            disabled={!file || !category || !city || !district || loading || (result?.success ?? false)}
+            disabled={!file || !category || !city || loading || (result?.success ?? false)}
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-red-600/25 transition-all hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none"
           >
             {loading ? (
