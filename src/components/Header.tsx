@@ -55,7 +55,7 @@ export default function Header() {
                 Duba
               </h1>
               <p className="hidden text-xs text-zinc-500 dark:text-zinc-400 sm:block">
-                Dubaca hareketlerin adresi
+                Kural ihlali bildirim merkezi
               </p>
             </div>
           </a>

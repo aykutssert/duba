@@ -26,7 +26,7 @@ export default function HeroSection() {
           priority
         />
         <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-          Dubaca İşler
+          Kaldırım İhlalleri
           <br />
           <span className="text-red-600">Çek, paylaş, fark yarat.</span>
         </h2>
