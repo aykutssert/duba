@@ -33,8 +33,8 @@ export default function Header() {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <a href="/" className="flex items-center gap-3">
             <Image
-              src="/davar.svg"
-              alt="Davar"
+              src="/duba.svg"
+              alt="Duba"
               width={36}
               height={36}
               className="rounded-lg"
@@ -43,10 +43,10 @@ export default function Header() {
             />
             <div>
               <h1 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-                Davar
+                Duba
               </h1>
               <p className="hidden text-xs text-zinc-500 dark:text-zinc-400 sm:block">
-                Davarca hareketlerin adresi
+                Dubaca hareketlerin adresi
               </p>
             </div>
           </a>

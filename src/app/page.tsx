@@ -47,7 +47,7 @@ export default function Home() {
       <footer className="border-t border-zinc-200 bg-white/50 dark:border-zinc-800 dark:bg-zinc-950/50">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <p className="text-xs text-zinc-400 dark:text-zinc-500">
-            Davar &mdash; Savar
+            Duba &mdash;
           </p>
           <div className="flex items-center gap-4">
             <a href="/privacy" className="text-xs text-zinc-400 transition-colors hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300">

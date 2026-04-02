@@ -17,8 +17,8 @@ export default function HeroSection() {
       <div id="hero-sentinel" className="absolute top-0 h-1 w-full" />
       <div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-16 text-center sm:px-6 sm:py-24">
         <Image
-          src="/davar.svg"
-          alt="Davar"
+          src="/duba.svg"
+          alt="Duba"
           width={72}
           height={72}
           className="mb-6 rounded-2xl shadow-lg"
@@ -26,7 +26,7 @@ export default function HeroSection() {
           priority
         />
         <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-          Davarca İşler
+          Dubaca İşler
           <br />
           <span className="text-red-600">Çek, paylaş, fark yarat.</span>
         </h2>
@@ -42,7 +42,7 @@ export default function HeroSection() {
               <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
               <circle cx="12" cy="13" r="3" />
             </svg>
-            Davar Savar
+            Dubala
           </button>
           <button
             onClick={handleScrollToFeed}

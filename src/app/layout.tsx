@@ -13,15 +13,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://davar-sand.vercel.app"),
+  metadataBase: new URL("https://duba-sand.vercel.app"),
   title: {
-    default: "Davar — Kural İhlali Bildirim Platformu",
-    template: "%s — Davar",
+    default: "Duba — Kural İhlali Bildirim Platformu",
+    template: "%s — Duba",
   },
   description:
     "Kaldırım ve engelli yollarındaki usulsüz park ihlallerini fotoğrafla, bildir, farkındalık yarat.",
   keywords: [
-    "davar",
+    "duba",
     "kaldırım ihlali",
     "erişilebilirlik",
     "bildirim",
@@ -39,10 +39,10 @@ export const metadata: Metadata = {
     viewportFit: "cover",
   },
   openGraph: {
-    title: "Davar — Kural İhlali Bildirim Platformu",
+    title: "Duba — Kural İhlali Bildirim Platformu",
     description: "Kaldırım ve engelli yollarındaki usulsüz parkları fotoğrafla, farkındalık yarat.",
-    url: "https://davar-sand.vercel.app",
-    siteName: "Davar",
+    url: "https://duba-sand.vercel.app",
+    siteName: "Duba",
     locale: "tr_TR",
     type: "website",
     images: [
@@ -50,25 +50,25 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Davar — Kural İhlali Bildirim Platformu",
+        alt: "Duba — Kural İhlali Bildirim Platformu",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Davar — Kural İhlali Bildirim Platformu",
+    title: "Duba — Kural İhlali Bildirim Platformu",
     description: "Kaldırım ve engelli yollarındaki usulsüz parkları fotoğrafla, farkındalık yarat.",
     images: ["/og-image.png"],
   },
   icons: {
     icon: [
-      { url: "/davar.svg", type: "image/svg+xml" },
-      { url: "/davar.png", type: "image/png" },
+      { url: "/duba.svg", type: "image/svg+xml" },
+      { url: "/duba.png", type: "image/png" },
     ],
-    apple: "/davar.png",
+    apple: "/duba.png",
   },
   alternates: {
-    canonical: "https://davar-sand.vercel.app",
+    canonical: "https://duba-sand.vercel.app",
   },
 };
 

@@ -1,4 +1,4 @@
-# Davar
+# Duba
 
 Kaldırım, engelli yolu ve bisiklet yollarındaki usulsüz park ihlallerini fotoğrafla belgeleyen anonim bildirim platformu. Plaka, yüz vb. durumlar blurlanır.
 

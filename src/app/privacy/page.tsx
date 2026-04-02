@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Gizlilik Politikası ve Kullanım Koşulları",
-  description: "Davar uygulaması gizlilik politikası, kullanım koşulları ve veri işleme süreçleri.",
+  description: "Duba uygulaması gizlilik politikası, kullanım koşulları ve veri işleme süreçleri.",
 };
 
 export default function PrivacyPage() {
@@ -32,7 +32,7 @@ export default function PrivacyPage() {
               1. Projenin Amacı
             </h2>
             <p>
-              Davar, kaldırım ve engelli yolu ihlallerine karşı toplumsal farkındalık yaratmayı
+              Duba, kaldırım ve engelli yolu ihlallerine karşı toplumsal farkındalık yaratmayı
               amaçlayan anonim bir platformdur. Amacımız ceza kestirmek veya kişileri ifşa etmek
               <strong> değildir</strong>; yalnızca sorunun boyutunu görünür kılmaktır.
             </p>
@@ -94,7 +94,7 @@ export default function PrivacyPage() {
               4. Anonim Kullanım
             </h2>
             <p>
-              Davar herhangi bir kayıt, giriş veya kişisel bilgi talep etmez. Kullanıcı hesabı
+              Duba herhangi bir kayıt, giriş veya kişisel bilgi talep etmez. Kullanıcı hesabı
               oluşturulmaz. Yüklenen içerik tamamen anonimdir; gönderenin kimliği platformda
               saklanmaz.
             </p>
@@ -105,7 +105,7 @@ export default function PrivacyPage() {
               5. Verilerin Saklanması ve 7 Gün Politikası
             </h2>
             <p>
-              Davar, &quot;Haftalık Döngü&quot; prensibiyle çalışır. Onaylanan bildirimler yalnızca
+              Duba, &quot;Haftalık Döngü&quot; prensibiyle çalışır. Onaylanan bildirimler yalnızca
               <strong> 7 gün boyunca</strong> yayında kalır. 7 günü dolan fotoğraflar hem
               veritabanından hem depolama alanından otomatik olarak silinir.
             </p>
@@ -133,7 +133,7 @@ export default function PrivacyPage() {
               7. Çerezler ve İzleme
             </h2>
             <p>
-              Davar üçüncü taraf çerez veya izleme aracı kullanmaz. Herhangi bir reklam ağı
+              Duba üçüncü taraf çerez veya izleme aracı kullanmaz. Herhangi bir reklam ağı
               veya analitik hizmeti entegre değildir.
             </p>
           </section>

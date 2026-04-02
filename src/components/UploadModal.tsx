@@ -160,7 +160,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
         </button>
 
         <h2 className="mb-1 text-xl font-bold text-zinc-900 dark:text-zinc-50">
-          Davar Savar 📸
+          Dubala 📸
         </h2>
         <p className="mb-5 text-sm text-zinc-500 dark:text-zinc-400">
           Gördüğünü çek, ilini seç, gerisini bize bırak.
